@@ -13,9 +13,10 @@ namespace RubikCubeUI
     {
         public const int CubeSize = 40;
         public const int CubiesPerSide = 3;
-        public const int StepsPerRotation =4 ;
+        public const int StepsPerRotation = 3 ;
         public const int AxisLength = 300;
-        public const int ScrambleMoves=5;
+        public const int ScrambleMoves=15;
+        public const int pauseTime=100;
 
         public static Color FrontColor = Color.Yellow,
             RightColor = Color.Orange,
@@ -23,6 +24,7 @@ namespace RubikCubeUI
             LeftColor = Color.Blue,
             TopColor = Color.White,
             BottomColor = Color.Green;
+        
 
         public static double GetMiddle()
         {

@@ -16,6 +16,7 @@ namespace RubikCubeUI
     public partial class CubikView : ReadyOpenGlTemplate
     {
         RubiksCube MyCube;
+        Stack<FaceRotation> rotations;
         public CubikView()
         {
             InitializeComponent();
@@ -40,7 +41,7 @@ namespace RubikCubeUI
         {
             Common myDrawer = new Common();
             MyView.setCameraView(simpleOpenGlView.VIEWS.Iso);
-            Stack<FaceRotation> rotations = MyCube.Scramble();
+            rotations = MyCube.Scramble();
             bool hasNextRotation = false;
 
             while (!MyView.isDisposed() && !this.IsDisposed)
@@ -62,18 +63,14 @@ namespace RubikCubeUI
                 //END DRAW SCENE HERE
                 MyView.flushScene();
                 this.Refresh();
-                Thread.Sleep(300);
+                Thread.Sleep(Constants.pauseTime);
                 Application.DoEvents();
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MyCube.Rotate(Axis.X, FacePosition.First, RotationSteps.Two);
+            rotations = MyCube.Scramble(20);
         }
-
-
-
-
     }
 }

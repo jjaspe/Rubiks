@@ -15,13 +15,13 @@ namespace RubikCubeUI
 
         public void CreateRotations(FaceRotation rotation)
         {
-            for(int i=0;i<Constants.StepsPerRotation;i++)
+            for(int i=0;i<Constants.StepsPerRotation*rotation.Degrees/90;i++)
             {
                 rotations.Push(new FaceRotation()
                 {
                     Axis = rotation.Axis,
                     FacePosition = rotation.FacePosition,
-                    Degrees = rotation.Degrees / Constants.StepsPerRotation
+                    Degrees = 90 / Constants.StepsPerRotation
                 });
             }
         }

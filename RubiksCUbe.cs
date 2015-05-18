@@ -94,11 +94,50 @@ namespace RubikCubeUI
         private void reassignCubies(Face chosenFace,Axis axis, FacePosition position, double degrees)
         {
             List<Face> surroundingFaces = getSurroundingFaces(axis);
-            List<List<Cubie>> SharedLists = getSharedLists(chosenFace, surroundingFaces);
-            cycleCubies(surroundingFaces, SharedLists);
+            List<Face> surroundingMiddles = getSurroundingMiddles(axis);
+            List<List<Cubie>> SharedLists = getSharedSideCubies(chosenFace, surroundingFaces);
+            List<List<Cubie>> SharedMiddles = getSharedMiddleCubies(chosenFace, surroundingMiddles);
+            cycleSideCubies(surroundingFaces, SharedLists);
+            cycleMiddleCubies(surroundingMiddles, SharedMiddles);
         }
 
-        private void cycleCubies(List<Face> faces,List<List<Cubie>> SharedLists)
+        private void cycleMiddleCubies(List<Face> faces, List<List<Cubie>> SharedMiddles)
+        {            
+            //Remove current, add previous. Needs to be done in this order
+            //because otherwise you'd lose the cubie the previous surrounding face
+            //and the current surrounding face share
+            faces[0].Cubies.RemoveAll(n => SharedMiddles[0].Contains(n) == true);
+            faces[0].Cubies.AddRange(SharedMiddles[SharedMiddles.Count - 1]);
+
+            faces[1].Cubies.RemoveAll(n => SharedMiddles[SharedMiddles.Count - 1].Contains(n) == true);
+            faces[1].Cubies.AddRange(SharedMiddles[0]);
+        }
+
+        private List<List<Cubie>> getSharedMiddleCubies(Face chosenFace, List<Face> surroundingMiddles)
+        {
+            List<List<Cubie>> sharedLists = new List<List<Cubie>>();
+            foreach (Face face in surroundingMiddles)
+            {
+                sharedLists.Add(chosenFace.getShared(face));
+            }
+            return sharedLists;
+        }
+
+        private List<Face> getSurroundingMiddles(Axis axis)
+        {
+            switch (axis)
+            {
+                case Axis.X:
+                    return new List<Face> { FaceMiddleY,FaceMiddleZ};
+                case Axis.Y:
+                    return new List<Face> { FaceMiddleX,FaceMiddleZ };
+                case Axis.Z:
+                    return new List<Face> { FaceMiddleX,FaceMiddleY };
+            }
+            return null;
+        }
+
+        private void cycleSideCubies(List<Face> faces,List<List<Cubie>> SharedLists)
         {
             faces[0].Cubies.RemoveAll(n => SharedLists[0].Contains(n) == true);
             faces[0].Cubies.AddRange(SharedLists[SharedLists.Count - 1]);
@@ -113,7 +152,7 @@ namespace RubikCubeUI
             }
         }
 
-        private List<List<Cubie>> getSharedLists(Face chosenFace, List<Face> surroundingFaces)
+        private List<List<Cubie>> getSharedSideCubies(Face chosenFace, List<Face> surroundingFaces)
         {
             List<List<Cubie>> sharedLists = new List<List<Cubie>>();
             foreach(Face face in surroundingFaces)
@@ -196,7 +235,7 @@ namespace RubikCubeUI
 
         public Stack<FaceRotation> Scramble(int movements=Constants.ScrambleMoves)
         {
-            return debugScramble();//DEBUG
+            //return debugScramble();//DEBUG
             Stack<FaceRotation> rotations = new Stack<FaceRotation>();
             Random r = new Random();
             Axis axis;
