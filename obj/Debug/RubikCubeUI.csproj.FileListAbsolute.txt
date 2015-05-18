@@ -10,4 +10,4 @@ c:\users\wichito\documents\visual studio 2013\Projects\RubikCubeUI\RubikCubeUI\b
 c:\users\wichito\documents\visual studio 2013\Projects\RubikCubeUI\RubikCubeUI\bin\Debug\Canvas Window Template.pdb
 c:\users\wichito\documents\visual studio 2013\Projects\RubikCubeUI\RubikCubeUI\obj\Debug\RubikCubeUI.exe
 c:\users\wichito\documents\visual studio 2013\Projects\RubikCubeUI\RubikCubeUI\obj\Debug\RubikCubeUI.pdb
-c:\users\wichito\documents\visual studio 2013\Projects\RubikCubeUI\RubikCubeUI\obj\Debug\RubikCubeUI.csprojResolveAssemblyReference.cache
+C:\Users\Wichito\documents\visual studio 2013\Projects\RubikCubeUI\RubikCubeUI\obj\Debug\RubikCubeUI.csprojResolveAssemblyReference.cache

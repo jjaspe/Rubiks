@@ -13,16 +13,16 @@ namespace RubikCubeUI
         public static List<lineObj> GetAxis()
         {
             double middle = Constants.GetMiddle();
+            lineObj xAxis = new lineObj(new pointObj(-Constants.AxisLength / 2, middle, middle),
+               new pointObj(Constants.AxisLength / 2, middle, middle),
+               Cubie.getFloatColor(Color.Green));
+            lineObj yAxis = new lineObj(new pointObj(middle, -Constants.AxisLength / 2, middle),
+               new pointObj(middle, Constants.AxisLength / 2, middle),
+               Cubie.getFloatColor(Color.Blue));
             lineObj zAxis = new lineObj(new pointObj(middle, middle, -Constants.AxisLength/2), 
                 new pointObj(middle, middle, Constants.AxisLength/2), 
                 Cubie.getFloatColor(Color.Red));
-            lineObj xAxis = new lineObj(new pointObj(-Constants.AxisLength / 2,middle,middle),
-               new pointObj(Constants.AxisLength / 2,middle,middle),
-               Cubie.getFloatColor(Color.Green));
-            lineObj yAxis = new lineObj(new pointObj(middle,-Constants.AxisLength / 2, middle),
-               new pointObj(middle,Constants.AxisLength / 2,middle),
-               Cubie.getFloatColor(Color.Blue));
-            return new List<lineObj>() { xAxis,zAxis ,yAxis};
+            return new List<lineObj>() { xAxis, yAxis, zAxis };
         }
     }
 }

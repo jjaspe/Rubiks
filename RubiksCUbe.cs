@@ -12,6 +12,7 @@ namespace RubikCubeUI
 
     public class RubiksCube:IDrawable
     {
+        CoolRotator rotator = new CoolRotator();
         public Face FaceFront = new Face(),
             FaceRight = new Face(),
             FaceBack = new Face(),
@@ -44,7 +45,7 @@ namespace RubikCubeUI
 
         public int getId()
         {
-            throw new NotImplementedException();
+            return 0;
         }
 
         public double[] getPosition()
@@ -85,22 +86,30 @@ namespace RubikCubeUI
         public void Rotate(Axis axis, FacePosition position, double degrees)
         {
             Face chosenFace = getFace(axis, position);
+            for (int i = 0; i < degrees / 90;i++ )
+                reassignCubies(chosenFace, axis, position, degrees);
+            chosenFace.Rotate(axis, degrees);
+        }
+
+        private void reassignCubies(Face chosenFace,Axis axis, FacePosition position, double degrees)
+        {
             List<Face> surroundingFaces = getSurroundingFaces(axis);
             List<List<Cubie>> SharedLists = getSharedLists(chosenFace, surroundingFaces);
-            cycleCubies(surroundingFaces,SharedLists);
-            chosenFace.Rotate(axis, degrees);
+            cycleCubies(surroundingFaces, SharedLists);
         }
 
         private void cycleCubies(List<Face> faces,List<List<Cubie>> SharedLists)
         {
-            faces[0].Cubies.AddRange(SharedLists[SharedLists.Count - 1]);
             faces[0].Cubies.RemoveAll(n => SharedLists[0].Contains(n) == true);
-
+            faces[0].Cubies.AddRange(SharedLists[SharedLists.Count - 1]);
+            
             for(int i=1;i<SharedLists.Count;i++)
             {
-                //Add previous,remove current
+                //Remove current, add previous. Needs to be done in this order
+                //because otherwise you'd lose the cubie the previous surrounding face
+                //and the current surrounding face share
+                faces[i].Cubies.RemoveAll(n => SharedLists[i].Contains(n) == true);
                 faces[i].Cubies.AddRange(SharedLists[i-1]);
-                faces[i].Cubies.RemoveAll(n=>SharedLists[i].Contains(n)==true);
             }
         }
 
@@ -119,7 +128,7 @@ namespace RubikCubeUI
             switch(axis)
             {
                 case Axis.X:
-                    return new List<Face> { FaceTop, FaceBack, FaceBottom, FaceFront };
+                    return new List<Face> { FaceTop, FaceFront, FaceBottom, FaceBack };
                 case Axis.Y:
                     return new List<Face> { FaceTop, FaceRight, FaceBottom, FaceLeft };
                 case Axis.Z:
@@ -187,6 +196,7 @@ namespace RubikCubeUI
 
         public Stack<FaceRotation> Scramble(int movements=Constants.ScrambleMoves)
         {
+            return debugScramble();//DEBUG
             Stack<FaceRotation> rotations = new Stack<FaceRotation>();
             Random r = new Random();
             Axis axis;
@@ -204,6 +214,64 @@ namespace RubikCubeUI
                 });
             }
             return rotations;
+        }
+
+        //DEBUG
+        public Stack<FaceRotation> debugScramble()
+        {
+            Stack<FaceRotation> rotations = new Stack<FaceRotation>();
+            rotations.Push(new FaceRotation()
+            { 
+                Axis=Axis.Y, 
+                FacePosition=FacePosition.Second, 
+                Degrees = 90 
+            });
+            rotations.Push(new FaceRotation()
+            {
+                Axis = Axis.X,
+                FacePosition = FacePosition.Second,
+                Degrees = 90
+            });
+            //rotations.Push(new FaceRotation()
+            //{
+            //    Axis = Axis.Z,
+            //    FacePosition = FacePosition.Third,
+            //    Degrees = 90
+            //});
+            //rotations.Push(new FaceRotation()
+            //{
+            //    Axis = Axis.X,
+            //    FacePosition = FacePosition.Second,
+            //    Degrees = 180
+            //});
+            return rotations;
+        }
+
+        /// <summary>
+        /// Rotates but doesn't reassign cubies since it is breaking up a bigger rotation
+        /// and you dont want to reassign on every small rotations.
+        /// </summary>
+        /// <returns></returns>
+        public bool CoolRotate()
+        {
+            FaceRotation rotation = rotator.GetNext();
+            if (rotation == null)
+                return false;
+            Face chosenFace = getFace(rotation.Axis, rotation.FacePosition);            
+            chosenFace.Rotate(rotation.Axis, rotation.Degrees);
+            return true;
+        }
+
+        /// <summary>
+        /// This method is called once per rotation, so this one reassingns cubies
+        /// </summary>
+        /// <param name="rotation"></param>
+        internal void SetCoolRotation(FaceRotation rotation)
+        {
+            Face chosenFace = getFace(rotation.Axis, rotation.FacePosition);
+            rotator.CreateRotations(rotation);
+            for (int i = 0; i < rotation.Degrees / 90; i++)
+                reassignCubies(chosenFace, rotation.Axis, rotation.FacePosition, rotation.Degrees);
         }
     }
 
