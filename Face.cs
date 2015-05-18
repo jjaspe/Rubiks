@@ -10,10 +10,10 @@ namespace RubikCubeUI
 
     public class Face : IDrawable
     {
-        public Cubie[] Cubies;
+        public List<Cubie> Cubies=new List<Cubie>();
         public Face()
         {
-            Cubies = new Cubie[9];
+            
         }
 
         public void colorFace(FaceNames faceName, Color color)
@@ -51,10 +51,15 @@ namespace RubikCubeUI
             return;
         }
 
-        public void Rotate(Axis axis,int degrees)
+        public void Rotate(Axis axis,double degrees)
         {
             foreach (Cubie cubie in Cubies)
                 cubie.Rotate(AxisBuilder.GetAxis()[(int)axis],degrees);
+        }
+
+        public List<Cubie> getShared(Face otherFace)
+        {
+            return Cubies.Where(n => otherFace.Cubies.Contains(n) == true).ToList();
         }
     }
 }

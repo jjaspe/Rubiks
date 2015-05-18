@@ -55,7 +55,9 @@
   <ItemGroup>
     <Compile Include="AxisBuilder.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="CoolRotator.cs" />
     <Compile Include="CubeBuilder.cs" />
+    <Compile Include="FaceRotation.cs" />
     <Compile Include="Cubie.cs" />
     <Compile Include="CubikView.cs">
       <SubType>Form</SubType>

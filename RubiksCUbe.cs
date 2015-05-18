@@ -8,7 +8,7 @@ using System.Text;
 
 namespace RubikCubeUI
 {
-    public enum FaceNames { Front,Right,Back,Left,Top,Bottom} ;
+    public enum FaceNames { Front, Right, Back, Left, Top, Bottom, MiddleX, MiddleY, MiddleZ } ;
 
     public class RubiksCube:IDrawable
     {
@@ -79,8 +79,69 @@ namespace RubikCubeUI
 
         public void Rotate(Axis axis,FacePosition position,RotationSteps steps)
         {
-            Face chosenFace=getFace(axis,position);
-            chosenFace.Rotate(axis, (int)(steps+1) * 90);
+            Rotate(axis, position, (int)(steps + 1) * 90);
+        }
+
+        public void Rotate(Axis axis, FacePosition position, double degrees)
+        {
+            Face chosenFace = getFace(axis, position);
+            List<Face> surroundingFaces = getSurroundingFaces(axis);
+            List<List<Cubie>> SharedLists = getSharedLists(chosenFace, surroundingFaces);
+            cycleCubies(surroundingFaces,SharedLists);
+            chosenFace.Rotate(axis, degrees);
+        }
+
+        private void cycleCubies(List<Face> faces,List<List<Cubie>> SharedLists)
+        {
+            faces[0].Cubies.AddRange(SharedLists[SharedLists.Count - 1]);
+            faces[0].Cubies.RemoveAll(n => SharedLists[0].Contains(n) == true);
+
+            for(int i=1;i<SharedLists.Count;i++)
+            {
+                //Add previous,remove current
+                faces[i].Cubies.AddRange(SharedLists[i-1]);
+                faces[i].Cubies.RemoveAll(n=>SharedLists[i].Contains(n)==true);
+            }
+        }
+
+        private List<List<Cubie>> getSharedLists(Face chosenFace, List<Face> surroundingFaces)
+        {
+            List<List<Cubie>> sharedLists = new List<List<Cubie>>();
+            foreach(Face face in surroundingFaces)
+            {
+                sharedLists.Add(chosenFace.getShared(face));
+            }
+            return sharedLists;
+        }
+
+        private List<Face> getSurroundingFaces(Axis axis)
+        {
+            switch(axis)
+            {
+                case Axis.X:
+                    return new List<Face> { FaceTop, FaceBack, FaceBottom, FaceFront };
+                case Axis.Y:
+                    return new List<Face> { FaceTop, FaceRight, FaceBottom, FaceLeft };
+                case Axis.Z:
+                    return new List<Face> { FaceFront, FaceRight, FaceBack, FaceLeft };
+            }
+            return null;
+        }
+
+        private FaceNames getFaceName(Axis axis, FacePosition position)
+        {
+            FaceNames[,] faces = new FaceNames[,]
+            {
+                {FaceNames.Left,FaceNames.MiddleX,FaceNames.Right},
+                {FaceNames.Front,FaceNames.MiddleY,FaceNames.Back},
+                {FaceNames.Bottom,FaceNames.MiddleZ,FaceNames.Top}
+            };
+            return faces[(int)axis,(int)position];
+        }
+
+        public void Rotate(FaceRotation rotation)
+        {
+            Rotate(rotation.Axis, rotation.FacePosition, rotation.Degrees);
         }
 
         private Face getFace(Axis axis, FacePosition position)
@@ -122,6 +183,27 @@ namespace RubikCubeUI
                     break;
             }
             return new Face();
+        }
+
+        public Stack<FaceRotation> Scramble(int movements=Constants.ScrambleMoves)
+        {
+            Stack<FaceRotation> rotations = new Stack<FaceRotation>();
+            Random r = new Random();
+            Axis axis;
+            FacePosition face;
+            RotationSteps steps;
+            for(int i=0;i<movements;i++)
+            {
+                axis = (Axis)r.Next(3);
+                face = (FacePosition)r.Next(3);
+                steps = (RotationSteps)r.Next(3);
+                rotations.Push(new FaceRotation() { 
+                    Axis = axis, 
+                    FacePosition = face, 
+                    Degrees = ((int)steps+1)*90 
+                });
+            }
+            return rotations;
         }
     }
 

@@ -70,15 +70,15 @@ namespace RubikCubeUI
                 }
             }
 
-            cube.FaceFront.Cubies = FrontCubies.ToArray();
-            cube.FaceRight.Cubies = RightCubies.ToArray();
-            cube.FaceBack.Cubies = BackCubies.ToArray();
-            cube.FaceLeft.Cubies = LeftCubies.ToArray();
-            cube.FaceTop.Cubies = TopCubies.ToArray();
-            cube.FaceBottom.Cubies = BottomCubies.ToArray();
-            cube.FaceMiddleX.Cubies = MiddleXCubies.ToArray();
-            cube.FaceMiddleY.Cubies = MiddleYCubies.ToArray();
-            cube.FaceMiddleZ.Cubies = MiddleZCubies.ToArray();
+            cube.FaceFront.Cubies = FrontCubies;
+            cube.FaceRight.Cubies = RightCubies;
+            cube.FaceBack.Cubies = BackCubies;
+            cube.FaceLeft.Cubies = LeftCubies;
+            cube.FaceTop.Cubies = TopCubies;
+            cube.FaceBottom.Cubies = BottomCubies;
+            cube.FaceMiddleX.Cubies = MiddleXCubies;
+            cube.FaceMiddleY.Cubies = MiddleYCubies;
+            cube.FaceMiddleZ.Cubies = MiddleZCubies;
         }
 
         public static Cubie[, ,] createCubies()

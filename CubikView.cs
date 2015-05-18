@@ -40,15 +40,28 @@ namespace RubikCubeUI
         {
             Common myDrawer = new Common();
             MyView.setCameraView(simpleOpenGlView.VIEWS.FrontUp);
+            Stack<FaceRotation> rotations = MyCube.Scramble();
+            CoolRotator rotator = new CoolRotator();
+            FaceRotation currentRotation;
 
             while (!MyView.isDisposed() && !this.IsDisposed)
             {
                 MyView.setupScene();
                 //DRAW SCENE HERE
+                if (rotations.Count > 0)
+                {
+                    currentRotation = rotator.GetNext();
+                    if (currentRotation != null)
+                        MyCube.Rotate(currentRotation);
+                    else
+                        rotator.CreateRotations(rotations.Pop());
+                }
+
                 myDrawer.drawWorld(MyWorld);
                 //END DRAW SCENE HERE
                 MyView.flushScene();
                 this.Refresh();
+                Thread.Sleep(300);
                 Application.DoEvents();
             }
         }

@@ -11,10 +11,11 @@ namespace RubikCubeUI
     public enum RotationSteps { One, Two, Three};
     public static class Constants
     {
-        public static int CubeSize = 40;
-        public static int CubiesPerSide = 3;
-        public static int StepsPerRotation = 6;
-        public static int AxisLength = 300;
+        public const int CubeSize = 40;
+        public const int CubiesPerSide = 3;
+        public const int StepsPerRotation =4 ;
+        public const int AxisLength = 300;
+        public const int ScrambleMoves=5;
 
         public static Color FrontColor = Color.Yellow,
             RightColor = Color.Orange,

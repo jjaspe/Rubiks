@@ -15,6 +15,7 @@ namespace RubikCubeUI
     {
         static int id = 0;
         int myID;
+        public FaceNames currentFace;
 
         public static Cubie getCubieByPosition(IPoint origin, Cubie[] cubies)
         {
@@ -46,6 +47,11 @@ namespace RubikCubeUI
             TileBottom = new tileObj();
         }
 
+        public Cubie SetFace(FaceNames faceName)
+        {
+            currentFace = faceName;
+            return this;
+        }
         public void setTiles(tileObj[] tiles)
         {
             TileFront = tiles[0];
