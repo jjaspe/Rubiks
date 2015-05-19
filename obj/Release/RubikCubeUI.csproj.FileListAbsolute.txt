@@ -1,0 +1,13 @@
+C:\Users\Wichito\Documents\Visual Studio 2013\Projects\RubikCubeUI\RubikCubeUI\obj\Release\RubikCubeUI.csprojResolveAssemblyReference.cache
+C:\Users\Wichito\Documents\Visual Studio 2013\Projects\RubikCubeUI\RubikCubeUI\obj\Release\RubikCubeUI.CubikView.resources
+C:\Users\Wichito\Documents\Visual Studio 2013\Projects\RubikCubeUI\RubikCubeUI\obj\Release\RubikCubeUI.Properties.Resources.resources
+C:\Users\Wichito\Documents\Visual Studio 2013\Projects\RubikCubeUI\RubikCubeUI\obj\Release\RubikCubeUI.csproj.GenerateResource.Cache
+C:\Users\Wichito\Documents\Visual Studio 2013\Projects\RubikCubeUI\RubikCubeUI\bin\Release\RubikCubeUI.exe
+C:\Users\Wichito\Documents\Visual Studio 2013\Projects\RubikCubeUI\RubikCubeUI\bin\Release\RubikCubeUI.pdb
+C:\Users\Wichito\Documents\Visual Studio 2013\Projects\RubikCubeUI\RubikCubeUI\bin\Release\Canvas Window Template.dll
+C:\Users\Wichito\Documents\Visual Studio 2013\Projects\RubikCubeUI\RubikCubeUI\bin\Release\Tao.OpenGl.dll
+C:\Users\Wichito\Documents\Visual Studio 2013\Projects\RubikCubeUI\RubikCubeUI\bin\Release\Tao.Platform.Windows.dll
+C:\Users\Wichito\Documents\Visual Studio 2013\Projects\RubikCubeUI\RubikCubeUI\bin\Release\ISE.FreeType.dll
+C:\Users\Wichito\Documents\Visual Studio 2013\Projects\RubikCubeUI\RubikCubeUI\bin\Release\Canvas Window Template.pdb
+C:\Users\Wichito\Documents\Visual Studio 2013\Projects\RubikCubeUI\RubikCubeUI\obj\Release\RubikCubeUI.exe
+C:\Users\Wichito\Documents\Visual Studio 2013\Projects\RubikCubeUI\RubikCubeUI\obj\Release\RubikCubeUI.pdb

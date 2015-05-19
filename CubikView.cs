@@ -72,5 +72,35 @@ namespace RubikCubeUI
         {
             rotations = MyCube.Scramble(20);
         }
+
+        private void frontButton_Click(object sender, EventArgs e)
+        {
+            MyView.setCameraView(simpleOpenGlView.VIEWS.Front);
+        }
+
+        private void rightButton_Click(object sender, EventArgs e)
+        {
+            MyView.setCameraView(simpleOpenGlView.VIEWS.Right);
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            MyView.setCameraView(simpleOpenGlView.VIEWS.Back);
+        }
+
+        private void leftButton_Click(object sender, EventArgs e)
+        {
+            MyView.setCameraView(simpleOpenGlView.VIEWS.Left);
+        }
+
+        private void topButton_Click(object sender, EventArgs e)
+        {
+            MyView.setCameraView(simpleOpenGlView.VIEWS.Top);
+        }
+
+        private void bottomButton_Click(object sender, EventArgs e)
+        {
+            MyView.setCameraView(simpleOpenGlView.VIEWS.Bottom);
+        }
     }
 }
