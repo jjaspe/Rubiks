@@ -89,7 +89,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Visual Studio 2010\Projects\Class Libraries\Canvas Window Template\Canvas Window Template.csproj">
+    <ProjectReference Include="..\Canvas Window Template\Canvas Window Template.csproj">
       <Project>{4f50b33a-9c8b-4a94-829f-c2ca0f8c7525}</Project>
       <Name>Canvas Window Template</Name>
     </ProjectReference>
